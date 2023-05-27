@@ -29,6 +29,9 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+SITE_ID = 1
+
+AUTH_USER_MODEL = 'mysite.CustomUser'
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -37,7 +40,36 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.sites',
+    "mysite",
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+
+# Google Authentication
+SOCIALACCOUNT_LOGIN_ON_GET=True
+
+AUTHENTICATION_BACKENDS = [
+    'allauth.account.auth_backends.AuthenticationBackend'
+    ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'
+# Google Authentication
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

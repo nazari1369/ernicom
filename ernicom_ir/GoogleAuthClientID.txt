@@ -1,0 +1,4 @@
+Client ID
+    696487372382-4nk44e1b1stl5pp7uvpdphiqharo47mt.apps.googleusercontent.com
+Client secret
+    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
