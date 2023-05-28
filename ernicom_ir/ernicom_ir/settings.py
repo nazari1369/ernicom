@@ -29,7 +29,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-SITE_ID = 1
 
 AUTH_USER_MODEL = 'mysite.CustomUser'
 
@@ -42,33 +41,16 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'django.contrib.sites',
     "mysite",
+    'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 ]
 
 # Google Authentication
-SOCIALACCOUNT_LOGIN_ON_GET=True
+#SOCIALACCOUNT_LOGIN_ON_GET=True
 
-AUTHENTICATION_BACKENDS = [
-    'allauth.account.auth_backends.AuthenticationBackend'
-    ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}
-
-LOGIN_REDIRECT_URL = '/'
-
-LOGOUT_REDIRECT_URL = '/'
 # Google Authentication
 
 MIDDLEWARE = [
@@ -86,7 +68,7 @@ ROOT_URLCONF = "ernicom_ir.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -152,4 +134,31 @@ STATIC_URL = "static/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+CSRF_TRUSTED_ORIGINS = ['https://nazari1369-musical-acorn-r9q6wrwpqxvfxqpj-8000.preview.app.github.dev','https://*.127.0.0.1']
